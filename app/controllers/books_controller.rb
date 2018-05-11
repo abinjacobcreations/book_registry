@@ -1,10 +1,27 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :publish]
 
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all.includes(:category)
+    # @books = Book.all.includes(:category)
+    @filterrific = initialize_filterrific(
+      Book,
+      params[:filterrific],
+      select_options: {
+        sorted_by: Book.options_for_sorted_by
+      },
+      persistence_id: 'shared_key',
+      default_filter_params: {},
+      available_filters: [:sorted_by, :with_book_name, :with_author, :with_isbn]
+    ) or return
+    @books_res = @filterrific.find.page(params[:page])
+    @books = @books_res.includes(:category)
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
   end
 
   # GET /books/1
@@ -61,6 +78,26 @@ class BooksController < ApplicationController
     end
   end
 
+  # Publish Book
+  def publish
+    if @book.unpublished?
+      params[:book] = {}
+      params[:book][:publish_status] = "published"
+      respond_to do |format|
+        if @book.update(publish_params)
+          format.html { redirect_to @book, notice: 'Book was successfully published.' }
+          format.json { render :show, status: :ok, location: @book }
+        else
+          format.html { render :edit }
+          format.json { render json: @book.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      format.html { redirect_to books_url, notice: 'Book was already published.' }
+      format.json { render json: @book.errors.add("Already Published!"), status: :unprocessable_entity }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -70,5 +107,9 @@ class BooksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
       params.require(:book).permit(:book_name, :category_id, :price, :isbn, :author, :publish_status)
+    end
+
+    def publish_params
+      params.require(:book).permit(:publish_status)
     end
 end

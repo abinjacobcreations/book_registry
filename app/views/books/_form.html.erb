@@ -12,34 +12,29 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :book_name %>
+    <%= form.label :book_name, "Book Name" %>
     <%= form.text_field :book_name, id: :book_book_name %>
   </div>
 
   <div class="field">
-    <%= form.label :category_id %>
+    <%= form.label :category_id, "Category" %>
     <%= form.select :category_id, Category.all.collect {|c| [ c.category_name, c.id ] }, id: :book_category_id 
     %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
+    <%= form.label :price, "Price(INR)" %>
     <%= form.number_field :price, id: :book_price, step: :any %>
   </div>
 
   <div class="field">
-    <%= form.label :isbn %>
+    <%= form.label :isbn, "ISBN" %>
     <%= form.text_field :isbn, id: :book_isbn %>
   </div>
 
   <div class="field">
     <%= form.label :author %>
     <%= form.text_field :author, id: :book_author %>
-  </div>
-
-  <div class="field">
-    <%= form.label :publish_status %>
-    <%= form.select :publish_status, Book.publish_statuses.keys.map {|ps| [ ps.titleize, ps ] }, id: :book_publish_status %>
   </div>
 
   <div class="actions">

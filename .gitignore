@@ -17,3 +17,7 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore Gemfile.lock
+Gemfile.lock
+config/database.yml

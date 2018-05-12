@@ -4,7 +4,7 @@ class Book < ApplicationRecord
 	# Validations
 	validates_presence_of :book_name, :author, :isbn, :price, :category_id
 	validates_uniqueness_of :isbn
-	validates :isbn, format: { with: /^(?:\d[\ |-]?){13}$/i, :multiline => true, message: "Invalid Format. eg: 978-0-596-52068-7" }
+	validates :isbn, format: { with: /^(?:\d[\ |-]?){13}$/i, :multiline => true, message: "invalid Format. eg: 978-0-596-52068-7" }
 	# Enums
 	enum publish_status: [:unpublished,:published]
 	# Filter conditions

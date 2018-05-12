@@ -1,27 +1,36 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
 # book_registry
 A register for Libraries
+
+* Ruby Version
+  2.4.1
+
+* Rails Version
+  5
+
+* Database
+  MySQL
+
+* Gem Installation
+  - gem install bundler
+  - bundle install
+
+* Database Configuration
+  - Add local mysql username & password to config/database.yml
+
+* Database Initialization
+  - rails db:create
+
+* Database Migration
+  - rails db:migrate
+
+* Database Seed
+  - rails db:seed
+
+* Start Server
+  - rails s
+
+* Testing Framework
+  - rspec-rails
+
+* Run Tests
+  - bundle exec rspec

@@ -2,7 +2,7 @@
 
 <h1>Books</h1>
 
-<%= form_for_filterrific @filterrific do |f| %>
+<%= form_for_filterrific @filterrific, {:action=>"index", :controller=>"books"} do |f| %>
   <div class="filter-bar">
     <div class= "filter-item">
       Name

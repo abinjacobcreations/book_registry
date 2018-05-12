@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 	root 'books#index'
   resources :books do
   	member do
-  		put 'publish'
+  		put 'change_access'
   	end
   end
   resources :categories

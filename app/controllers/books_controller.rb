@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy, :publish]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :change_access]
 
   # GET /books
   # GET /books.json
@@ -78,23 +78,22 @@ class BooksController < ApplicationController
     end
   end
 
-  # Publish Book
-  def publish
+  # Publish/Unpublish Book
+  def change_access
+    params[:book] = {}
     if @book.unpublished?
-      params[:book] = {}
       params[:book][:publish_status] = "published"
-      respond_to do |format|
-        if @book.update(publish_params)
-          format.html { redirect_to @book, notice: 'Book was successfully published.' }
-          format.json { render :show, status: :ok, location: @book }
-        else
-          format.html { render :edit }
-          format.json { render json: @book.errors, status: :unprocessable_entity }
-        end
+    elsif @book.published?
+      params[:book][:publish_status] = "unpublished"
+    end
+    respond_to do |format|
+      if @book.update(publish_params)
+        format.html { redirect_to @book, notice: "Book was successfully #{params[:book][:publish_status]}." }
+        format.json { render :show, status: :ok, location: @book }
+      else
+        format.html { render :edit }
+        format.json { render json: @book.errors, status: :unprocessable_entity }
       end
-    else
-      format.html { redirect_to books_url, notice: 'Book was already published.' }
-      format.json { render json: @book.errors.add("Already Published!"), status: :unprocessable_entity }
     end
   end
 

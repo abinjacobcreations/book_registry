@@ -2,11 +2,12 @@ require 'rails_helper'
 
 RSpec.describe "books/new", type: :view do
   before(:each) do
+    @category = Category.create!(category_name: "Fiction")
     assign(:book, Book.new(
       :book_name => "MyString",
-      :category_id => 1,
+      :category_id => @category.id,
       :price => "9.99",
-      :isbn => "MyString",
+      :isbn => "978-0-596-52068-8",
       :author => "MyString",
       :publish_status => 1
     ))
@@ -19,15 +20,11 @@ RSpec.describe "books/new", type: :view do
 
       assert_select "input[name=?]", "book[book_name]"
 
-      assert_select "input[name=?]", "book[category_id]"
-
       assert_select "input[name=?]", "book[price]"
 
       assert_select "input[name=?]", "book[isbn]"
 
       assert_select "input[name=?]", "book[author]"
-
-      assert_select "input[name=?]", "book[publish_status]"
     end
   end
 end

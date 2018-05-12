@@ -27,7 +27,7 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @book.publish_status %>
+  <%= @book.publish_status.titleize %>
 </p>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |

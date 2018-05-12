@@ -27,9 +27,9 @@
           <td><%= book.author %></td>
           <td>
             <%if book.publish_status == "unpublished"%>
-              <%= button_to 'Publish', publish_book_path(book), method: :put %>
+              <%= button_to 'Publish', change_access_book_path(book), method: :put %>
             <%else%>
-              <%= book.publish_status.titleize %>
+              <%= button_to 'Unpublish', change_access_book_path(book), method: :put %>
             <% end %>
           </td>
           <td><%= link_to 'Show', book %></td>

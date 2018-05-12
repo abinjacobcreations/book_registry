@@ -2,13 +2,13 @@
 A register for Libraries
 
 * Ruby Version
-  2.4.1
+  - 2.4.1
 
 * Rails Version
-  5
+  - 5
 
 * Database
-  MySQL
+  - MySQL
 
 * Gem Installation
   - gem install bundler
